@@ -8,7 +8,7 @@ def findftp(domain):
 	domain = domain.strip()
     
     	try:
-		# TAKE A LOOK FOR GIT REPO
+		# TAKE A LOOK FOR FTP Configuration file
 		# Try to download http://target.tld/sftp-config.json
 		request = Request('http://' + domain + "/sftp-config.json")
 		req = urllib2.urlopen(request)
