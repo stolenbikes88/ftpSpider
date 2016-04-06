@@ -4,7 +4,7 @@ from urllib2 import Request
 #from urllib.request import urlopen
 from multiprocessing import Pool
 
-def findgitrepo(domain):
+def findftp(domain):
 	domain = domain.strip()
     
     	try:
@@ -43,5 +43,5 @@ if __name__ == '__main__':
     print("Scanning...")
     pool = Pool(processes=MAXPROCESSES)
     domains = open(DOMAINFILE, "r").readlines()
-    pool.map(findgitrepo, domains)
+    pool.map(findftp, domains)
     print("Finished")
