@@ -15,7 +15,7 @@ def findftp(domain):
 		answer = req.read(250).decode()
 		print answer
 
-		# Check if refs/heads is in the file
+		# Ensure it's the correct file and not just a random page
 		if('save_before_upload' in answer):
 		    # Write match to OUTPUTFILE
 		    fHandle = open(OUTPUTFILE,'a')
