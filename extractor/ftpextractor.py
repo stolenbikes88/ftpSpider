@@ -56,7 +56,6 @@ def extractftp(line):
 		    fHandle = open(OUTPUTFILE,'a')
 		    fHandle.write(line+"\n")
 		    fHandle.close()
-		    print("[*] Found config: " + domain)
 		    return
 
 	except Exception as e:     
