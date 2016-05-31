@@ -13,7 +13,7 @@ def findftp(domain):
 		request = Request('http://' + domain + "/sftp-config.json")
 		req = urllib2.urlopen(request)
 		answer = req.read(250).decode()
-		print answer
+		
 
 		# Ensure it's the correct file and not just a random page
 		if('save_before_upload' in answer):

